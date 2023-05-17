@@ -1,22 +1,32 @@
-// =============
-function hourglassSum(arr) {
-    let currSum = 0;
-    let maxSum;
-    //loop running rows
-    for (let i = 0; i < arr.length - 2; i++) {
-    //loop running columns
-        for (let j = 0; j < arr[i].length - 2; j++) {
-            currSum=arr[i][j]+arr[i][j+1]+arr[i][j+2];
-            currSum+=arr[i+1][j+1];
-            currSum+=arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2];
-            if(i==0 && j==0) maxSum = currSum;
-        if(maxSum < currSum) maxSum = currSum;
-        currSum = 0;
+
+
+
+
+function dynamicArray(n, queriesArr) {
+    // Write your code here
+    const arr=[];
+    let lastAnswer=0;
+    let count=0;
+const answerArr=[];
+for (let i = 0; i < queriesArr.length; i++) {
+    const queryType= queriesArr[i][0];
+     const x= queriesArr[i][1];
+     const y= queriesArr[i][2];
+     let idx= ((x ^ lastAnswer) % n);
+    if(queryType === 1){
+    // creates a new array on that index if there is no array formed in that index bcz we need a 2d array
+    if(arr[idx] === undefined) arr[idx]=[];
+        arr[idx].push(y);
     }
+    else if(queryType === 2){
+    if(answerArr[count] === undefined) answerArr[count]=[];
+    lastAnswer = arr[idx][y % arr[idx].length];
+    answerArr[count].push(lastAnswer);
+    count++;
 }
-    return maxSum;
+}
+ return answerArr;
 }
 
-const twoDArr = [[-1, -1, 0, -9, -2, -2], [-2, -1, -6, -8, -2, -5], [-1, -1, -1, -2, -3, -4], [-1, -9, -2 ,-4 ,-4 ,-5], [-7, -3, -3 ,-2, -9, -9], [-1, -3, -1, -2, -4 ,-5]];
-const res = hourglassSum(twoDArr);
-console.log(res)
+const res =dynamicArray(2,[[1,0,5], [1,1,7], [1, 0, 3],[2, 1, 0] ,[2, 1, 1]])
+console.log(res);
