@@ -1,22 +1,84 @@
-// =============
-function hourglassSum(arr) {
-    let currSum = 0;
-    let maxSum;
-    //loop running rows
-    for (let i = 0; i < arr.length - 2; i++) {
-    //loop running columns
-        for (let j = 0; j < arr[i].length - 2; j++) {
-            currSum=arr[i][j]+arr[i][j+1]+arr[i][j+2];
-            currSum+=arr[i+1][j+1];
-            currSum+=arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2];
-            if(i==0 && j==0) maxSum = currSum;
-        if(maxSum < currSum) maxSum = currSum;
-        currSum = 0;
-    }
-}
-    return maxSum;
-}
 
-const twoDArr = [[-1, -1, 0, -9, -2, -2], [-2, -1, -6, -8, -2, -5], [-1, -1, -1, -2, -3, -4], [-1, -9, -2 ,-4 ,-4 ,-5], [-7, -3, -3 ,-2, -9, -9], [-1, -3, -1, -2, -4 ,-5]];
-const res = hourglassSum(twoDArr);
-console.log(res)
+/*
+ * Complete the 'removeDuplicates' function below.
+ *
+ * The function is expected to return an INTEGER_SINGLY_LINKED_LIST.
+ * The function accepts INTEGER_SINGLY_LINKED_LIST llist as parameter.
+ */
+
+/*
+* For your reference:
+*
+* SinglyLinkedListNode {
+ *     int data;
+ *     SinglyLinkedListNode next;
+ * }
+ *
+ */
+
+/* function removeDuplicates(llist) {
+    let uniqueDataList = null;
+    let currentUniqueDataList = uniqueDataList;
+
+    while (llist !== null) {
+        const newNode = {
+            data: llist.data,
+            next: null
+        };
+
+        if (currentUniqueDataList === null) {
+            currentUniqueDataList = {...newNode};
+            uniqueDataList = currentUniqueDataList;
+            console.log(currentUniqueDataList);
+        } else if (currentUniqueDataList.data !== newNode.data) {
+            currentUniqueDataList.next = newNode;
+            currentUniqueDataList = currentUniqueDataList.next;
+        }
+
+        llist = llist.next;
+    }
+
+    return uniqueDataList;
+}
+ */
+function removeDuplicates(llist) {
+    // Write your code here
+    let uniqueDataList = null;
+    let currentUniqueDataList = null;
+    while(llist !== null){
+        const newNode = {
+            data: llist.data,
+            next: null
+        }
+        if(currentUniqueDataList === null){
+            currentUniqueDataList = {...newNode};
+            uniqueDataList =currentUniqueDataList
+        }
+        else if(currentUniqueDataList.data !== llist.data)
+        {
+
+            currentUniqueDataList.next = newNode;
+            currentUniqueDataList= currentUniqueDataList.next;
+        }
+        llist = llist.next;
+
+    }
+
+return uniqueDataList
+ }
+
+const res = removeDuplicates({   data:0,
+    next:{
+        data:6,
+        next:{
+            data:7,
+            next:{
+                data:9,
+                next:{
+                    data:9,
+                    next:null
+                }
+            }
+        }
+}});
+console.log(res);
