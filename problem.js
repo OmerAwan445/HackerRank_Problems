@@ -1,22 +1,47 @@
-// =============
-function hourglassSum(arr) {
-    let currSum = 0;
-    let maxSum;
-    //loop running rows
-    for (let i = 0; i < arr.length - 2; i++) {
-    //loop running columns
-        for (let j = 0; j < arr[i].length - 2; j++) {
-            currSum=arr[i][j]+arr[i][j+1]+arr[i][j+2];
-            currSum+=arr[i+1][j+1];
-            currSum+=arr[i+2][j]+arr[i+2][j+1]+arr[i+2][j+2];
-            if(i==0 && j==0) maxSum = currSum;
-        if(maxSum < currSum) maxSum = currSum;
-        currSum = 0;
+/*
+    Find merge point of two linked lists
+    Note that the head may be 'null' for the empty list.
+    Node is defined as
+    var Node = function(data) {
+        this.data = data;
+        this.next = null;
     }
-}
-    return maxSum;
+*/
+
+function findMergeNode(headA, headB) {
+    let list1 = headA;
+    let list2 = headB;
+
+    while (list1.data !== list2.data) {
+        // Traverse list A
+        if (list1.next === null) {
+            list1 = headB; // Move to head of list B
+        } else {
+            list1 = list1.next; // Move to the next node in list A
+        }
+
+        // Traverse list B
+        if (list2.next === null) {
+            list2 = headA; // Move to head of list A
+        } else {
+            list2 = list2.next; // Move to the next node in list B
+        }
+    }
+
+    // At this point, list1 and list2 are pointing to the merge point
+    return list1.data;
 }
 
-const twoDArr = [[-1, -1, 0, -9, -2, -2], [-2, -1, -6, -8, -2, -5], [-1, -1, -1, -2, -3, -4], [-1, -9, -2 ,-4 ,-4 ,-5], [-7, -3, -3 ,-2, -9, -9], [-1, -3, -1, -2, -4 ,-5]];
-const res = hourglassSum(twoDArr);
-console.log(res)
+const res =findMergeNode({   data:1,
+    next:{
+        data:2,
+        next:{
+            data:3,
+            next:null
+        }
+}},{   data:3,
+    next:{
+        data:5,
+        next:null
+}});
+console.log(res);
